@@ -1,0 +1,119 @@
+[
+    {
+        "pk": 1,
+        "model": "core.property",
+        "fields": {
+            "prefix": "SET",
+            "name": "Attribute Set",
+            "enabled": true,
+            "kind": "N",
+            "sort": "basic",
+            "language": 1,
+            "code": "print 'All Systems'"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "core.property",
+        "fields": {
+            "prefix": "CID",
+            "name": "Computer ID",
+            "enabled": true,
+            "kind": "N",
+            "sort": "basic",
+            "language": 1,
+            "code": ""
+        }
+    },
+    {
+        "pk": 3,
+        "model": "core.property",
+        "fields": {
+            "prefix": "PLT",
+            "name": "Platform",
+            "enabled": true,
+            "kind": "N",
+            "sort": "basic",
+            "language": 1,
+            "code": ""
+        }
+    },
+    {
+        "pk": 4,
+        "model": "core.property",
+        "fields": {
+            "prefix": "PRJ",
+            "name": "Project",
+            "enabled": true,
+            "kind": "N",
+            "sort": "basic",
+            "language": 1,
+            "code": ""
+        }
+    },
+    {
+        "pk": 5,
+        "model": "core.property",
+        "fields": {
+            "prefix": "IP",
+            "name": "IP Address",
+            "enabled": true,
+            "kind": "N",
+            "sort": "basic",
+            "language": 1,
+            "code": ""
+        }
+    },
+    {
+        "pk": 6,
+        "model": "core.property",
+        "fields": {
+            "prefix": "USR",
+            "name": "Login User",
+            "enabled": true,
+            "kind": "N",
+            "sort": "basic",
+            "language": 1,
+            "code": ""
+        }
+    },
+    {
+        "pk": 7,
+        "model": "core.property",
+        "fields": {
+            "prefix": "HST",
+            "name": "Hostname",
+            "enabled": true,
+            "kind": "N",
+            "sort": "client",
+            "language": 1,
+            "code": "import platform\nprint(platform.node())"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "core.property",
+        "fields": {
+            "prefix": "NET",
+            "name": "Network",
+            "enabled": true,
+            "kind": "N",
+            "sort": "client",
+            "language": 1,
+            "code": "from __future__ import print_function\n\nfrom migasfree_client.network import get_network_info\n\nprint(get_network_info()['net'])"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "core.property",
+        "fields": {
+            "prefix": "PCI",
+            "name": "PCI Devices",
+            "enabled": true,
+            "kind": "-",
+            "sort": "client",
+            "language": 1,
+            "code": "from __future__ import print_function\nimport sys\nimport subprocess\nimport platform\n\n\n_platform = platform.system()\nif _platform == 'Linux':\n    cmd_linux = \"\"\"r=''\n      if [ `lspci -n | sed -n 1p | awk '{print $2}'` = 'Class' ]\n      then\n        dev=`lspci -n | awk '{print $4}'`\n      else\n        dev=`lspci -n | awk '{print $3}'`\n      fi\n      for l in $dev\n      do\n        n=`lspci -d $l | awk '{for (i = 2; i <= NF; ++i) print $i}' | tr \"\\n\" \" \" | sed 's/,//g'`\n        r=\"$r$l~$n,\"\n      done\n      echo $r\"\"\"\n    out, err = subprocess.Popen(cmd_linux, stdout=subprocess.PIPE, shell=True).communicate()\n    if sys.version_info.major <= 2:\n        print(out,)\n    else:\n        print(out.decode(),)\nelif _platform == 'Windows':\n    print(\"none\",)\nelse:\n    print(\"none\",)"
+        }
+    }
+]

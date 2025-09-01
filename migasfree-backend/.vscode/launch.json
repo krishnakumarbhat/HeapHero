@@ -1,0 +1,55 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Django",
+            "type": "debugpy",
+            "pythonArgs": ["-Wd"],
+            "request": "launch",
+            "program": "${workspaceFolder}/manage.py",
+            "args": [
+                "runserver",
+                "0.0.0.0:2345",
+                "--settings=migasfree.settings.development"
+            ],
+            "django": true,
+            "subProcess": false
+        },
+        {
+            "name": "Python: Celery beat",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "celery",
+            "console": "integratedTerminal",
+            "args": [
+                "--app=migasfree.celery.app",
+                "beat",
+                "--loglevel=DEBUG",
+            ],
+            "env": {
+                "DJANGO_SETTINGS_MODULE": "migasfree.settings.development"
+            },
+        },
+        {
+            "name": "Python: Celery queues",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "celery",
+            "console": "integratedTerminal",
+            "args": [
+                "--app=migasfree.celery.app",
+                "worker",
+                "--without-gossip",
+                "--concurrency=10",
+                "--queues=default,pms-apt,pms-dnf,pms-pacman,pms-winget,pms-wpt,pms-yum,pms-zypper",
+                "--loglevel=DEBUG",
+            ],
+            "env": {
+                "DJANGO_SETTINGS_MODULE": "migasfree.settings.development"
+            },
+        }
+    ]
+}
